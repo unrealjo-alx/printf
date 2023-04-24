@@ -9,58 +9,27 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int chars_written = 0;
+	const char *format_ptr = format;
 
 	va_start(args, format);
-	while (*format != '\0')
-	{
-		if (*format == '%')
-		{
-			format++;
 
-			switch (*format)
-			{
-			case 'c':
-			{
-				char c = va_arg(args, int);
-				_putchar(c);
-				chars_written++;
-				break;
-			}
-			case 's':
-			{
-				char *str = va_arg(args, char *);
-				while (*str != '\0')
-				{
-					_putchar(*str);
-					str++;
-					chars_written++;
-				}
-				break;
-			}
-			case '%':
-			{
-				_putchar('%');
-				chars_written++;
-				break;
-			}
-			default:
-			{
-				_putchar('%');
-				_putchar(*format);
-				chars_written += 2;
-				break;
-			}
-			}
+	while (*format_ptr != '\0')
+	{
+		if (*format_ptr == '%')
+		{
+			format_ptr++;
+
+			chars_written = handle_specifier(&format_ptr, args, &chars_written);
 		}
 		else
 		{
-			_putchar(*format);
-			chars_written++;
+			chars_written = print_char(*format_ptr, &chars_written);
 		}
 
-		format++;
+		format_ptr++;
 	}
 
 	va_end(args);
+
 	return (chars_written);
 }

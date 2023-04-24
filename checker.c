@@ -28,6 +28,14 @@ int handle_specifier(const char **format_ptr, va_list args, int *chars_written)
 	{
 		return (print_percent(chars_written));
 	}
+	case 'd':
+	case 'i':
+	{
+		int n = va_arg(args, int);
+
+		chars_written += _print_int(n);
+		return (*chars_written);
+	}
 	default:
 	{
 		return (print_error(**format_ptr, chars_written));

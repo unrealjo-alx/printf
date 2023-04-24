@@ -16,9 +16,7 @@ int _print_int(int n)
 	}
 
 	if (n / 10)
-	{
 		chars_written += _print_int(n / 10);
-	}
 
 	_putchar((n % 10) + '0');
 	chars_written++;

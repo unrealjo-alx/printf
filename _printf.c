@@ -11,6 +11,9 @@ int _printf(const char *format, ...)
 	int chars_written = 0;
 	const char *format_ptr = format;
 
+	if (format == NULL)
+		return (-1);
+
 	va_start(args, format);
 
 	while (*format_ptr != '\0')
